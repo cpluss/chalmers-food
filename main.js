@@ -62,6 +62,8 @@ function scrub(text) {
 
 var app = express();
 
+app.set('view engine', 'jade');
+
 var feeds = [
     { name: 'Kåren', url: 'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss?today=true' },
     { name: 'Linsen', url: 'http://intern.chalmerskonferens.se/view/restaurant/linsen/RSS%20Feed.rss?today=true' },
@@ -74,16 +76,12 @@ app.get('/', function(_req, res) {
     Promise.all(promises).then(function(items) {
         var out = '';
 
-        items.forEach(function(rs) {
-            out += '<h2>' + rs[0].name + '</h2>';
-
-            rs.forEach(function(r) {
-                out += '<h4>' + r.title + '</h4>';
-                out += '<p>' + r.descr + '</p>';
-            });
+        var rss = items.map(function(rs) {
+            return { name: rs[0].name,
+                     vals: rs };
         });
 
-        res.send(out);
+        res.render('index', { rss: rss });
     });
 });
 

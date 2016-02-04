@@ -1,0 +1,10 @@
+doctype html
+html
+    head
+        title="Mat på Chalmers Johanneberg"
+    body
+        each rs in rss
+            h2= rs.name
+            each r in rs.vals
+                h3= r.title
+                p= r.descr
