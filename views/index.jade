@@ -2,9 +2,12 @@ doctype html
 html
     head
         title="Mat på Chalmers Johanneberg"
+        style
+            include style.css
     body
         each rs in rss
-            h2= rs.name
-            each r in rs.vals
-                h3= r.title
-                p= r.descr
+            div(class="r")
+                h2= rs.name
+                each r in rs.vals
+                    h3= r.title
+                    p= r.descr

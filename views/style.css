@@ -1,0 +1,27 @@
+h2 {
+    color: #222;
+    text-decoration: underline;
+    margin-bottom: -20px;
+    margin-top: 20px;
+}
+
+h2:first-child {
+    margin-top: 10px;
+}
+
+h3 {
+    color: #444;
+    margin-left: 5px;
+}
+
+p {
+    color: #666;
+    margin-left: 10px;
+    margin-top: -18px;
+    width: 350px;
+}
+
+.r {
+    float: left;
+    padding-right: 30px;
+}
