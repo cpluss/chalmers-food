@@ -21,6 +21,7 @@ function process_feed(feed) {
             if (res.statusCode != 200) {
                 return this.emit('error', new Error('Bad status code!'));
             }
+            console.log(res);
 
             stream.pipe(feedparser);
         });
@@ -47,6 +48,9 @@ function process_feed(feed) {
         });
 
         feedparser.on('end', function() {
+            if (items.length == 0) {
+                items = [ { name: feed.name, title: 'Ingen mat idag', descr: '' } ];
+            }
             resolve(items);
         });
     });
@@ -76,10 +80,12 @@ app.get('/', function(_req, res) {
     Promise.all(promises).then(function(items) {
         var out = '';
 
+        console.log(items);
         var rss = items.map(function(rs) {
             return { name: rs[0].name,
                      vals: rs };
         });
+        console.log(rss);
 
         res.render('index', { rss: rss });
     });
