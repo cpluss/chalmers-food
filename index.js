@@ -67,6 +67,7 @@ function scrub(text) {
 var app = express();
 
 app.set('view engine', 'jade');
+app.use(express.static('public'));
 
 var feeds = [
     { name: 'Kåren', url: 'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss?today=true' },
@@ -80,12 +81,10 @@ app.get('/', function(_req, res) {
     Promise.all(promises).then(function(items) {
         var out = '';
 
-        console.log(items);
         var rss = items.map(function(rs) {
             return { name: rs[0].name,
                      vals: rs };
         });
-        console.log(rss);
 
         res.render('index', { rss: rss });
     });
