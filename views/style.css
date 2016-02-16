@@ -18,7 +18,7 @@ p {
     color: #666;
     margin-left: 10px;
     margin-top: -18px;
-    width: 350px;
+    max-width: 350px;
 }
 
 .r {
@@ -26,8 +26,3 @@ p {
     padding-right: 30px;
 }
 
-@media screen and (max-width: 700px) {
-    body {
-        max-width: 400px;
-    }
-}

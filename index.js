@@ -21,7 +21,6 @@ function process_feed(feed) {
             if (res.statusCode != 200) {
                 return this.emit('error', new Error('Bad status code!'));
             }
-            console.log(res);
 
             stream.pipe(feedparser);
         });
@@ -37,6 +36,10 @@ function process_feed(feed) {
             var item;
 
             while (item = stream.read()) {
+                if (feed.only_include_parts && !item.title.startsWith(feed.only_include_parts)) {
+                  continue;
+                }
+
                 var o = {
                     name: feed.name,
                     title: scrub(item.title),
@@ -72,7 +75,8 @@ app.use(express.static('public'));
 var feeds = [
     { name: 'Kåren', url: 'http://intern.chalmerskonferens.se/view/restaurant/karrestaurangen/Veckomeny.rss?today=true' },
     { name: 'Linsen', url: 'http://intern.chalmerskonferens.se/view/restaurant/linsen/RSS%20Feed.rss?today=true' },
-    { name: 'Express', url: 'http://intern.chalmerskonferens.se/view/restaurant/express/V%C3%A4nster.rss?today=true' }
+    { name: 'Express', url: 'http://intern.chalmerskonferens.se/view/restaurant/express/V%C3%A4nster.rss?today=true' },
+    { name: 'J.A. Pripps', url: 'http://intern.chalmerskonferens.se/view/restaurant/j-a-pripps-pub-cafe/RSS%20Feed.rss?today=true', only_include_parts: 'Kockens' }
 ];
 
 app.get('/', function(_req, res) {
