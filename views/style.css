@@ -26,3 +26,6 @@ p {
     padding-right: 30px;
 }
 
+.clean {
+  clear: both;
+}
