@@ -60,7 +60,7 @@ function process_feed(feed) {
 }
 
 function scrub(text) {
-    if (text.indexOf('@') > 1) {
+    if (text !== null && text !== undefined && text.indexOf('@') > 1) {
         return text.substr(0, text.indexOf('@'));
     } else {
         return text;
